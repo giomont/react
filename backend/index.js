@@ -10,11 +10,9 @@ const PORT = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Conexión a MongoDB
-mongoose.connect('mongodb://localhost:27017/reactform', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('MongoDB conectado'))
+// Conexión a MongoDB Atlas (contraseña codificada)
+mongoose.connect('mongodb+srv://giomont:4%25nwC.3z.bEQ8%40P@cluster0.p6sdz0h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+  .then(() => console.log('MongoDB conectado'))
   .catch(err => console.error('Error de conexión a MongoDB:', err));
 
 // Ruta para guardar producto
