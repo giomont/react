@@ -17,9 +17,9 @@ mongoose.connect('mongodb+srv://giomont:19712025@cluster0.p6sdz0h.mongodb.net/?r
 
 // Ruta para guardar producto
 app.post('/api/products', async (req, res) => {
-  const { name, price, imageUrl } = req.body;
+  const { name, price } = req.body;
   try {
-    const product = new Product({ name, price, imageUrl });
+    const product = new Product({ name, price });
     await product.save();
     res.status(201).json({ message: 'Producto guardado' });
   } catch (error) {
@@ -49,11 +49,11 @@ app.delete('/api/products/:id', async (req, res) => {
 
 // Ruta para editar un producto por ID
 app.put('/api/products/:id', async (req, res) => {
-  const { name, price, imageUrl } = req.body;
+  const { name, price } = req.body;
   try {
     const product = await Product.findByIdAndUpdate(
       req.params.id,
-      { name, price, imageUrl },
+      { name, price },
       { new: true }
     );
     res.json(product);
