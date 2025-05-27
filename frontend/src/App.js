@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://giomont-express-backend-url/api/products' // <-- Cambia esto por la URL pública real de tu backend
+  : 'http://localhost:5000/api/products';
+
 function App() {
   const [form, setForm] = useState({ name: '', price: '' });
   const [message, setMessage] = useState('');
@@ -13,7 +17,7 @@ function App() {
   }, []);
 
   const fetchProducts = async () => {
-    const res = await fetch('http://localhost:5000/api/products');
+    const res = await fetch(API_URL);
     const data = await res.json();
     setProducts(data);
   };
@@ -26,7 +30,7 @@ function App() {
     e.preventDefault();
     setMessage('');
     try {
-      const url = editId ? `http://localhost:5000/api/products/${editId}` : 'http://localhost:5000/api/products';
+      const url = editId ? `${API_URL}/${editId}` : API_URL;
       const method = editId ? 'PUT' : 'POST';
       const res = await fetch(url, {
         method,
@@ -56,7 +60,7 @@ function App() {
 
   const handleDelete = async (id) => {
     if (!window.confirm('¿Seguro que deseas eliminar este producto?')) return;
-    await fetch(`http://localhost:5000/api/products/${id}`, { method: 'DELETE' });
+    await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
     fetchProducts();
   };
 
