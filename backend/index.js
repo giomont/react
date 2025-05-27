@@ -10,8 +10,8 @@ const PORT = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Conexión a MongoDB Atlas (contraseña codificada)
-mongoose.connect('mongodb+srv://giomont:4%25nwC.3z.bEQ8%40P@cluster0.p6sdz0h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+// Conexión a MongoDB Atlas (contraseña actualizada)
+mongoose.connect('mongodb+srv://giomont:19712025@cluster0.p6sdz0h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => console.log('MongoDB conectado'))
   .catch(err => console.error('Error de conexión a MongoDB:', err));
 
