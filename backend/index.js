@@ -27,6 +27,41 @@ app.post('/api/products', async (req, res) => {
   }
 });
 
+// Ruta para obtener todos los productos
+app.get('/api/products', async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener los productos' });
+  }
+});
+
+// Ruta para eliminar un producto por ID
+app.delete('/api/products/:id', async (req, res) => {
+  try {
+    await Product.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Producto eliminado' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar el producto' });
+  }
+});
+
+// Ruta para editar un producto por ID
+app.put('/api/products/:id', async (req, res) => {
+  const { name, price, imageUrl } = req.body;
+  try {
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      { name, price, imageUrl },
+      { new: true }
+    );
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar el producto' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor backend escuchando en http://localhost:${PORT}`);
 });
